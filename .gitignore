@@ -1,45 +1,125 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter/Dart 관련 파일
 .dart_tool/
 .flutter-plugins
 .flutter-plugins-dependencies
-.pub-cache/
+.packages
 .pub/
-/build/
+.pub-cache/
+build/
+pubspec.lock
 
-# Symbolication related
+# FVM(Flutter Version Manager) 관련 파일
+.fvm/flutter_sdk
+.fvm/fvm_config.json
+.fvm/.fvm
+
+# IDE 관련 파일 (Android Studio, VS Code, IntelliJ)
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+.classpath
+.project
+.settings/
+
+# Android 관련 파일
+**/android/**/gradle-wrapper.jar
+**/android/.gradle
+**/android/captures/
+**/android/gradlew
+**/android/gradlew.bat
+**/android/local.properties
+**/android/key.properties
+**/android/**/GeneratedPluginRegistrant.*
+
+# iOS 관련 파일
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.tags*
+**/ios/**/.vagrant/
+**/ios/**/DerivedData/
+**/ios/**/Icon?
+**/ios/**/Pods/
+**/ios/**/.symlinks/
+**/ios/**/profile
+**/ios/**/xcuserdata
+**/ios/.generated/
+**/ios/Flutter/App.framework
+**/ios/Flutter/Flutter.framework
+**/ios/Flutter/Flutter.podspec
+**/ios/Flutter/Generated.xcconfig
+**/ios/Flutter/app.flx
+**/ios/Flutter/app.zip
+**/ios/Flutter/flutter_assets/
+**/ios/Flutter/flutter_export_environment.sh
+**/ios/ServiceDefinitions.json
+**/ios/Runner/GeneratedPluginRegistrant.*
+
+# macOS 관련 파일
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+**/macos/Flutter/Flutter-Profile.xcconfig
+
+# 웹 관련 파일
+**/web/packages
+**/lib/generated_plugin_registrant.dart
+
+# 윈도우 관련 파일
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# 리눅스 관련 파일
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake
+
+# 캐시와 로그 파일
+*.log
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+coverage/
+
+# 디버그 심볼 파일
 app.*.symbols
 
-# Obfuscation related
-app.*.map.json
+# 프로파일링 파일
+app.*.profile
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# 릴리스 아티팩트
+*.apk
+*.aab
+*.ipa
+
+# 환경 설정 파일 (필요시 주석 해제)
+# .env
+# .env.development
+# .env.production
+
+# Supabase 관련 파일
+# supabase/.branches
+# supabase/.temp
+# supabase/.env
+.supabase/
+supabase/.temp/
+supabase/.branches/
+
+# 기타 무시할 파일
+**/doc/api/
+.last_build_id
+.metadata
+
+# Firebase 설정 파일 (필요시 주석 해제)
+# google-services.json
+# GoogleService-Info.plist
+# firebase_options.dart
