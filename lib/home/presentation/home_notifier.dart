@@ -28,7 +28,7 @@ class HomeNotifier extends _$HomeNotifier {
         await _loadHomeInfo();
       case Refresh():
         await _refreshHomeInfo();
-      case OnTap():
+      case OnTapDetail():
         _onTap();
     }
   }

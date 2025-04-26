@@ -15,7 +15,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(homeNotifierProvider);
-
     final notifier = ref.read(homeNotifierProvider.notifier);
 
     return Scaffold(
@@ -128,7 +127,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed:
-                      () => notifier.handleAction(const HomeAction.onTap()),
+                      () => notifier.handleAction(const HomeAction.onTapDetail()),
                   child: const Text('자세히 보기'),
                 ),
               ],
@@ -174,7 +173,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed:
-                      () => notifier.handleAction(const HomeAction.onTap()),
+                      () => notifier.handleAction(const HomeAction.onTapDetail()),
                   child: const Text('자세히 보기'),
                 ),
               ],

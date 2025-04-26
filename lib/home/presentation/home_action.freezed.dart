@@ -109,8 +109,8 @@ String toString() {
 /// @nodoc
 
 
-class OnTap implements HomeAction {
-  const OnTap();
+class OnTapDetail implements HomeAction {
+  const OnTapDetail();
   
 
 
@@ -120,7 +120,7 @@ class OnTap implements HomeAction {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnTap);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnTapDetail);
 }
 
 
@@ -129,7 +129,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'HomeAction.onTap()';
+  return 'HomeAction.onTapDetail()';
 }
 
 

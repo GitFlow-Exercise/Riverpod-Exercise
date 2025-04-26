@@ -11,5 +11,5 @@ sealed class HomeAction with _$HomeAction {
   const factory HomeAction.refresh() = Refresh;
 
   // 탭 클릭 액션
-  const factory HomeAction.onTap() = OnTap;
+  const factory HomeAction.onTapDetail() = OnTapDetail;
 }
