@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/home/presentation/home_action.dart';
+
 import 'home_event.dart';
 import 'home_notifier.dart';
 import 'home_screen.dart';
@@ -52,6 +53,9 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: HomeScreen());
+    final state = ref.watch(homeNotifierProvider);
+    final notifier = ref.read(homeNotifierProvider.notifier);
+
+    return Scaffold(body: HomeScreen(state: state, notifier: notifier));
   }
 }

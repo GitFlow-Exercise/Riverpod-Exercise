@@ -8,6 +8,6 @@ abstract class HomeState with _$HomeState {
   const factory HomeState({
     @Default(false) bool isLoading,
     String? errorMessage,
-    Home? homeData,
+    @Default(Home.empty) Home homeData,
   }) = _HomeState;
 }

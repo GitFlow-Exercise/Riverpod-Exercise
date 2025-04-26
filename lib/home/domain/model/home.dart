@@ -9,4 +9,6 @@ abstract class Home with _$Home {
     required String description,
     required String imageUrl,
   }) = _Home;
+
+  static const empty = Home(title: '', description: '', imageUrl: '');
 }

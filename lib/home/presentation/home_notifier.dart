@@ -44,8 +44,13 @@ class HomeNotifier extends _$HomeNotifier {
       case Success(data: final homeData):
         state = state.copyWith(isLoading: false, homeData: homeData);
       case Error(error: final error):
-        state = state.copyWith(isLoading: false, errorMessage: error.toString());
-        emitEvent(HomeEvent.showSnackBar('정보를 불러오는데 실패했습니다: ${error.toString()}'));
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: error.toString(),
+        );
+        emitEvent(
+          HomeEvent.showSnackBar('정보를 불러오는데 실패했습니다: ${error.toString()}'),
+        );
     }
   }
 
@@ -60,7 +65,10 @@ class HomeNotifier extends _$HomeNotifier {
       case Success(data: final homeData):
         state = state.copyWith(isLoading: false, homeData: homeData);
       case Error(error: final error):
-        state = state.copyWith(isLoading: false, errorMessage: error.toString());
+        state = state.copyWith(
+          isLoading: false,
+          errorMessage: error.toString(),
+        );
         emitEvent(HomeEvent.showSnackBar('새로고침 실패: ${error.toString()}'));
     }
   }

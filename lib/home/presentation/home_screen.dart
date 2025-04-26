@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:practice/home/presentation/home_state.dart';
+
 import 'home_action.dart';
 import 'home_notifier.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
-  const HomeScreen({super.key});
+  final HomeState state;
+
+  final HomeNotifier notifier;
+
+  const HomeScreen({required this.state, required this.notifier, super.key});
 
   @override
   ConsumerState<HomeScreen> createState() => _HomeScreenState();
@@ -14,9 +19,6 @@ class HomeScreen extends ConsumerStatefulWidget {
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(homeNotifierProvider);
-    final notifier = ref.read(homeNotifierProvider.notifier);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter 웹 홈'),
@@ -24,18 +26,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () => notifier.handleAction(const HomeAction.refresh()),
+            onPressed:
+                () => widget.notifier.handleAction(const HomeAction.refresh()),
           ),
         ],
       ),
       body:
-          state.isLoading
+          widget.state.isLoading
               ? const Center(child: CircularProgressIndicator())
-              : _buildContent(context, state, notifier),
+              : _buildContent(context, widget.state, widget.notifier),
     );
   }
 
-  // 본문 컨텐츠 빌드
   Widget _buildContent(
     BuildContext context,
     HomeState state,
@@ -84,7 +86,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  // 넓은 화면용 레이아웃 (태블릿, 데스크톱)
   Widget _buildWideLayout(
     BuildContext context,
     HomeState state,
@@ -92,7 +93,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   ) {
     return Row(
       children: [
-        // 왼쪽 이미지 영역 (화면의 50%)
         Expanded(
           flex: 5,
           child: Center(
@@ -106,7 +106,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ),
 
-        // 오른쪽 텍스트 영역 (화면의 50%)
         Expanded(
           flex: 5,
           child: Container(
@@ -116,7 +115,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  state.homeData!.title,
+                  state.homeData.title,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 16),
@@ -127,7 +126,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 32),
                 ElevatedButton(
                   onPressed:
-                      () => notifier.handleAction(const HomeAction.onTapDetail()),
+                      () =>
+                          notifier.handleAction(const HomeAction.onTapDetail()),
                   child: const Text('자세히 보기'),
                 ),
               ],
@@ -138,7 +138,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  // 좁은 화면용 레이아웃 (모바일)
   Widget _buildNarrowLayout(
     BuildContext context,
     HomeState state,
@@ -147,13 +146,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
-          // 상단 이미지 영역
           Container(
             padding: const EdgeInsets.all(16),
             child: Image.network(state.homeData!.imageUrl, fit: BoxFit.contain),
           ),
 
-          // 하단 텍스트 영역
           Container(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -173,7 +170,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 const SizedBox(height: 24),
                 ElevatedButton(
                   onPressed:
-                      () => notifier.handleAction(const HomeAction.onTapDetail()),
+                      () =>
+                          notifier.handleAction(const HomeAction.onTapDetail()),
                   child: const Text('자세히 보기'),
                 ),
               ],
