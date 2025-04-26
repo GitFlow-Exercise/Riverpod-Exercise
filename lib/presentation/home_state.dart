@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:practice/domain/model/home.dart';
 
 part 'home_state.freezed.dart';
 
@@ -6,5 +7,7 @@ part 'home_state.freezed.dart';
 abstract class HomeState with _$HomeState {
   const factory HomeState({
     @Default(false) bool isLoading,
+    String? errorMessage,
+    Home? homeData,
   }) = _HomeState;
 }

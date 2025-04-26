@@ -45,6 +45,70 @@ $HomeActionCopyWith(HomeAction _, $Res Function(HomeAction) __);
 /// @nodoc
 
 
+class LoadHomeInfo implements HomeAction {
+  const LoadHomeInfo();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LoadHomeInfo);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeAction.loadHomeInfo()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class Refresh implements HomeAction {
+  const Refresh();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Refresh);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HomeAction.refresh()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
 class OnTap implements HomeAction {
   const OnTap();
   

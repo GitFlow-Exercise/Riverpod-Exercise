@@ -2,9 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/presentation/home_event.dart';
-import 'package:practice/presentation/home_notifier.dart';
-import 'package:practice/presentation/home_screen.dart';
+import 'package:practice/presentation/home_action.dart';
+import 'home_event.dart';
+import 'home_notifier.dart';
+import 'home_screen.dart';
 
 class HomeScreenRoot extends ConsumerStatefulWidget {
   const HomeScreenRoot({super.key});
@@ -14,30 +15,47 @@ class HomeScreenRoot extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
-  late final StreamSubscription<HomeEvent> _eventSubscription;
+  StreamSubscription? _subscription;
 
   @override
   void initState() {
     super.initState();
-    _eventSubscription = ref.read(homeNotifierProvider.notifier).eventStream.listen(_handleEvent);
+
+    _subscription = ref
+        .read(homeNotifierProvider.notifier)
+        .eventStream
+        .listen(_handleEvent);
+
+    // 화면이 처음 로드될 때 데이터 가져오기
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(homeNotifierProvider.notifier).handleAction(
+        const HomeAction.loadHomeInfo(),
+      );
+    });
   }
 
+
+
+  // 1회성 이벤트 처리 메서드
   void _handleEvent(HomeEvent event) {
     switch (event) {
-      case ShowSnackBar():
-        // TODO: Handle this case.
-        throw UnimplementedError();
+      case ShowSnackBar(message: final message):
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(message)),
+        );
     }
   }
 
   @override
   void dispose() {
-    _eventSubscription.cancel();
+    _subscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return const HomeScreen();
+    return const Scaffold(
+      body: HomeScreen(),
+    );
   }
 }

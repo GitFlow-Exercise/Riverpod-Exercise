@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$HomeState {
 
- bool get isLoading;
+ bool get isLoading; String? get errorMessage; Home? get homeData;
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $HomeStateCopyWith<HomeState> get copyWith => _$HomeStateCopyWithImpl<HomeState>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.homeData, homeData) || other.homeData == homeData));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading);
+int get hashCode => Object.hash(runtimeType,isLoading,errorMessage,homeData);
 
 @override
 String toString() {
-  return 'HomeState(isLoading: $isLoading)';
+  return 'HomeState(isLoading: $isLoading, errorMessage: $errorMessage, homeData: $homeData)';
 }
 
 
@@ -46,11 +46,11 @@ abstract mixin class $HomeStateCopyWith<$Res>  {
   factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) _then) = _$HomeStateCopyWithImpl;
 @useResult
 $Res call({
- bool isLoading
+ bool isLoading, String? errorMessage, Home? homeData
 });
 
 
-
+$HomeCopyWith<$Res>? get homeData;
 
 }
 /// @nodoc
@@ -63,13 +63,27 @@ class _$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? isLoading = null,Object? errorMessage = freezed,Object? homeData = freezed,}) {
   return _then(_self.copyWith(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,homeData: freezed == homeData ? _self.homeData : homeData // ignore: cast_nullable_to_non_nullable
+as Home?,
   ));
 }
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$HomeCopyWith<$Res>? get homeData {
+    if (_self.homeData == null) {
+    return null;
+  }
 
+  return $HomeCopyWith<$Res>(_self.homeData!, (value) {
+    return _then(_self.copyWith(homeData: value));
+  });
+}
 }
 
 
@@ -77,10 +91,12 @@ as bool,
 
 
 class _HomeState implements HomeState {
-  const _HomeState({this.isLoading = false});
+  const _HomeState({this.isLoading = false, this.errorMessage, this.homeData});
   
 
 @override@JsonKey() final  bool isLoading;
+@override final  String? errorMessage;
+@override final  Home? homeData;
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
@@ -92,16 +108,16 @@ _$HomeStateCopyWith<_HomeState> get copyWith => __$HomeStateCopyWithImpl<_HomeSt
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _HomeState&&(identical(other.isLoading, isLoading) || other.isLoading == isLoading)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.homeData, homeData) || other.homeData == homeData));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,isLoading);
+int get hashCode => Object.hash(runtimeType,isLoading,errorMessage,homeData);
 
 @override
 String toString() {
-  return 'HomeState(isLoading: $isLoading)';
+  return 'HomeState(isLoading: $isLoading, errorMessage: $errorMessage, homeData: $homeData)';
 }
 
 
@@ -112,11 +128,11 @@ abstract mixin class _$HomeStateCopyWith<$Res> implements $HomeStateCopyWith<$Re
   factory _$HomeStateCopyWith(_HomeState value, $Res Function(_HomeState) _then) = __$HomeStateCopyWithImpl;
 @override @useResult
 $Res call({
- bool isLoading
+ bool isLoading, String? errorMessage, Home? homeData
 });
 
 
-
+@override $HomeCopyWith<$Res>? get homeData;
 
 }
 /// @nodoc
@@ -129,14 +145,28 @@ class __$HomeStateCopyWithImpl<$Res>
 
 /// Create a copy of HomeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? isLoading = null,Object? errorMessage = freezed,Object? homeData = freezed,}) {
   return _then(_HomeState(
 isLoading: null == isLoading ? _self.isLoading : isLoading // ignore: cast_nullable_to_non_nullable
-as bool,
+as bool,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,homeData: freezed == homeData ? _self.homeData : homeData // ignore: cast_nullable_to_non_nullable
+as Home?,
   ));
 }
 
+/// Create a copy of HomeState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$HomeCopyWith<$Res>? get homeData {
+    if (_self.homeData == null) {
+    return null;
+  }
 
+  return $HomeCopyWith<$Res>(_self.homeData!, (value) {
+    return _then(_self.copyWith(homeData: value));
+  });
+}
 }
 
 // dart format on
