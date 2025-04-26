@@ -1,3 +1,5 @@
+import 'package:practice/core/exception/app_exception.dart';
+import 'package:practice/core/result/result.dart';
 import 'package:practice/home/data/data_source/home_data_source.dart';
 import 'package:practice/home/data/mapper/home_mapper.dart';
 import 'package:practice/home/domain/model/home.dart';
@@ -10,9 +12,18 @@ class HomeRepositoryImpl implements HomeRepository {
     : _homeDataSource = homeDataSource;
 
   @override
-  Future<Home> getHomeInfo() async {
-    // 데이터 소스에서 DTO를 가져와 도메인 모델로 변환하여 반환
-    final homeDto = await _homeDataSource.getHomeInfo();
-    return homeDto.toHome();
+  Future<Result<Home, AppException>> getHomeInfo() async {
+    try {
+      final homeDto = await _homeDataSource.getHomeInfo();
+      return Result.success(homeDto.toHome());
+    } catch (e) {
+      return Result.error(
+        AppException.network(
+          message: '홈 정보를 가져오는 중 오류가 발생했습니다.',
+          error: e,
+          stackTrace: StackTrace.current,
+        ),
+      );
+    }
   }
 }

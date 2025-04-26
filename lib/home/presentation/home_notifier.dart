@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:practice/core/di/providers.dart';
+import 'package:practice/core/result/result.dart';
 import 'package:practice/home/presentation/home_action.dart';
 import 'package:practice/home/presentation/home_event.dart';
 import 'package:practice/home/presentation/home_state.dart';
@@ -36,15 +37,15 @@ class HomeNotifier extends _$HomeNotifier {
   Future<void> _loadHomeInfo() async {
     state = state.copyWith(isLoading: true, errorMessage: null);
 
-    try {
-      final useCase = ref.read(getHomeInfoUseCaseProvider);
-      final homeData = await useCase.getHomeInfo();
+    final useCase = ref.read(getHomeInfoUseCaseProvider);
+    final result = await useCase.getHomeInfo();
 
-      state = state.copyWith(isLoading: false, homeData: homeData);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, errorMessage: e.toString());
-
-      emitEvent(HomeEvent.showSnackBar('정보를 불러오는데 실패했습니다: ${e.toString()}'));
+    switch (result) {
+      case Success(data: final homeData):
+        state = state.copyWith(isLoading: false, homeData: homeData);
+      case Error(error: final error):
+        state = state.copyWith(isLoading: false, errorMessage: error.toString());
+        emitEvent(HomeEvent.showSnackBar('정보를 불러오는데 실패했습니다: ${error.toString()}'));
     }
   }
 
@@ -52,24 +53,22 @@ class HomeNotifier extends _$HomeNotifier {
   Future<void> _refreshHomeInfo() async {
     state = state.copyWith(isLoading: true);
 
-    try {
-      final useCase = ref.read(getHomeInfoUseCaseProvider);
-      final homeData = await useCase.getHomeInfo();
+    final useCase = ref.read(getHomeInfoUseCaseProvider);
+    final result = await useCase.getHomeInfo();
 
-      state = state.copyWith(isLoading: false, homeData: homeData);
-    } catch (e) {
-      state = state.copyWith(isLoading: false, errorMessage: e.toString());
-
-      emitEvent(HomeEvent.showSnackBar('새로고침 실패: ${e.toString()}'));
+    switch (result) {
+      case Success(data: final homeData):
+        state = state.copyWith(isLoading: false, homeData: homeData);
+      case Error(error: final error):
+        state = state.copyWith(isLoading: false, errorMessage: error.toString());
+        emitEvent(HomeEvent.showSnackBar('새로고침 실패: ${error.toString()}'));
     }
   }
 
-  // 탭 클릭 처리
   void _onTap() {
     emitEvent(const HomeEvent.showSnackBar('탭이 클릭되었습니다.'));
   }
 
-  // 이벤트 발생 메서드
   void emitEvent(HomeEvent event) {
     _eventController.add(event);
   }
