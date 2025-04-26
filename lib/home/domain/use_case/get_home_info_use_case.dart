@@ -1,6 +1,5 @@
-import 'package:practice/domain/model/home.dart';
-import 'package:practice/domain/repository/home_repository.dart';
-
+import 'package:practice/home/domain/model/home.dart';
+import 'package:practice/home/domain/repository/home_repository.dart';
 
 class GetHomeInfoUseCase {
   final HomeRepository _repository;

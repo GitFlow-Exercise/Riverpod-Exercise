@@ -1,7 +1,7 @@
-import 'package:practice/data/data_source/home_data_source.dart';
-import 'package:practice/data/mapper/home_mapper.dart';
-import 'package:practice/domain/model/home.dart';
-import 'package:practice/domain/repository/home_repository.dart';
+import 'package:practice/home/data/data_source/home_data_source.dart';
+import 'package:practice/home/data/mapper/home_mapper.dart';
+import 'package:practice/home/domain/model/home.dart';
+import 'package:practice/home/domain/repository/home_repository.dart';
 
 class HomeRepositoryImpl implements HomeRepository {
   final HomeDataSource _homeDataSource;

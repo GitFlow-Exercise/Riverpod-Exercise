@@ -14,7 +14,8 @@ class HomeDto {
     required this.imageUrl,
   });
 
-  factory HomeDto.fromJson(Map<String, dynamic> json) => _$HomeDtoFromJson(json);
+  factory HomeDto.fromJson(Map<String, dynamic> json) =>
+      _$HomeDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$HomeDtoToJson(this);
 }

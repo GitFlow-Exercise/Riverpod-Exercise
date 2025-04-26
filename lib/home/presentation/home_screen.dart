@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/presentation/home_state.dart';
+import 'package:practice/home/presentation/home_state.dart';
 import 'home_action.dart';
 import 'home_notifier.dart';
 
@@ -29,18 +29,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      body: state.isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _buildContent(context, state, notifier),
+      body:
+          state.isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _buildContent(context, state, notifier),
     );
   }
 
   // 본문 컨텐츠 빌드
   Widget _buildContent(
-      BuildContext context,
-      HomeState state,
-      HomeNotifier notifier,
-      ) {
+    BuildContext context,
+    HomeState state,
+    HomeNotifier notifier,
+  ) {
     // 에러 메시지가 있을 경우 에러 표시
     if (state.errorMessage != null) {
       return Center(
@@ -54,7 +55,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => notifier.handleAction(const HomeAction.refresh()),
+              onPressed:
+                  () => notifier.handleAction(const HomeAction.refresh()),
               child: const Text('다시 시도'),
             ),
           ],
@@ -85,10 +87,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   // 넓은 화면용 레이아웃 (태블릿, 데스크톱)
   Widget _buildWideLayout(
-      BuildContext context,
-      HomeState state,
-      HomeNotifier notifier,
-      ) {
+    BuildContext context,
+    HomeState state,
+    HomeNotifier notifier,
+  ) {
     return Row(
       children: [
         // 왼쪽 이미지 영역 (화면의 50%)
@@ -125,7 +127,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 const SizedBox(height: 32),
                 ElevatedButton(
-                  onPressed: () => notifier.handleAction(const HomeAction.onTap()),
+                  onPressed:
+                      () => notifier.handleAction(const HomeAction.onTap()),
                   child: const Text('자세히 보기'),
                 ),
               ],
@@ -138,20 +141,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   // 좁은 화면용 레이아웃 (모바일)
   Widget _buildNarrowLayout(
-      BuildContext context,
-      HomeState state,
-      HomeNotifier notifier,
-      ) {
+    BuildContext context,
+    HomeState state,
+    HomeNotifier notifier,
+  ) {
     return SingleChildScrollView(
       child: Column(
         children: [
           // 상단 이미지 영역
           Container(
             padding: const EdgeInsets.all(16),
-            child: Image.network(
-              state.homeData!.imageUrl,
-              fit: BoxFit.contain,
-            ),
+            child: Image.network(state.homeData!.imageUrl, fit: BoxFit.contain),
           ),
 
           // 하단 텍스트 영역
@@ -173,7 +173,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: () => notifier.handleAction(const HomeAction.onTap()),
+                  onPressed:
+                      () => notifier.handleAction(const HomeAction.onTap()),
                   child: const Text('자세히 보기'),
                 ),
               ],

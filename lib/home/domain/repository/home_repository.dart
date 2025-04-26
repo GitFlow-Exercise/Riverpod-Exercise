@@ -1,4 +1,4 @@
-import 'package:practice/domain/model/home.dart';
+import 'package:practice/home/domain/model/home.dart';
 
 abstract interface class HomeRepository {
   Future<Home> getHomeInfo();

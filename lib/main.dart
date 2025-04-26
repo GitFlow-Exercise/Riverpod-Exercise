@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/presentation/home_screen_root.dart';
+import 'package:practice/home/presentation/home_screen_root.dart';
 
 void main() {
   // ProviderScope를 최상위 위젯으로 감싸 Riverpod 상태 관리 활성화

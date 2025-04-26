@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:practice/core/di/providers.dart';
-import 'package:practice/presentation/home_action.dart';
-import 'package:practice/presentation/home_event.dart';
-import 'package:practice/presentation/home_state.dart';
+import 'package:practice/home/presentation/home_action.dart';
+import 'package:practice/home/presentation/home_event.dart';
+import 'package:practice/home/presentation/home_state.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'home_notifier.g.dart';
@@ -40,15 +40,9 @@ class HomeNotifier extends _$HomeNotifier {
       final useCase = ref.read(getHomeInfoUseCaseProvider);
       final homeData = await useCase.getHomeInfo();
 
-      state = state.copyWith(
-        isLoading: false,
-        homeData: homeData,
-      );
+      state = state.copyWith(isLoading: false, homeData: homeData);
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        errorMessage: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
 
       emitEvent(HomeEvent.showSnackBar('정보를 불러오는데 실패했습니다: ${e.toString()}'));
     }
@@ -62,16 +56,9 @@ class HomeNotifier extends _$HomeNotifier {
       final useCase = ref.read(getHomeInfoUseCaseProvider);
       final homeData = await useCase.getHomeInfo();
 
-      state = state.copyWith(
-        isLoading: false,
-        homeData: homeData,
-      );
-
+      state = state.copyWith(isLoading: false, homeData: homeData);
     } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        errorMessage: e.toString(),
-      );
+      state = state.copyWith(isLoading: false, errorMessage: e.toString());
 
       emitEvent(HomeEvent.showSnackBar('새로고침 실패: ${e.toString()}'));
     }
