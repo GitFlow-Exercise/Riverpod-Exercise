@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/home/domain/model/home.dart';
 import 'package:practice/home/presentation/home_state.dart';
 
 import 'home_action.dart';
@@ -28,52 +29,52 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      body:
-          widget.state.isLoading
-              ? const Center(child: CircularProgressIndicator())
-              : _buildContent(context, widget.state),
+      body: widget.state.homeData.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error:
+            (error, stackTrace) =>
+                _buildErrorContent(context, error.toString()),
+        data: (homeData) => _buildContent(context, homeData),
+      ),
     );
   }
 
-  Widget _buildContent(BuildContext context, HomeState state) {
-    // 에러 메시지가 있을 경우 에러 표시
-    if (state.errorMessage != null) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              '에러 발생: ${state.errorMessage}',
-              style: const TextStyle(color: Colors.red),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => widget.onAction(const HomeAction.refresh()),
-              child: const Text('다시 시도'),
-            ),
-          ],
-        ),
-      );
-    }
+  Widget _buildErrorContent(BuildContext context, String errorMessage) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            '에러 발생: $errorMessage',
+            style: const TextStyle(color: Colors.red),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: () => widget.onAction(const HomeAction.refresh()),
+            child: const Text('다시 시도'),
+          ),
+        ],
+      ),
+    );
+  }
 
+  Widget _buildContent(BuildContext context, Home homeData) {
     // 화면 너비에 따라 레이아웃 조정 (반응형)
     return LayoutBuilder(
       builder: (context, constraints) {
         final isWideScreen = constraints.maxWidth > 800;
 
         if (isWideScreen) {
-          // 넓은 화면 레이아웃 (태블릿, 데스크톱)
-          return _buildWideLayout(context, state);
+          return _buildWideLayout(context, homeData);
         } else {
-          // 좁은 화면 레이아웃 (모바일)
-          return _buildNarrowLayout(context, state);
+          return _buildNarrowLayout(context, homeData);
         }
       },
     );
   }
 
-  Widget _buildWideLayout(BuildContext context, HomeState state) {
+  Widget _buildWideLayout(BuildContext context, Home homeData) {
     return Row(
       children: [
         Expanded(
@@ -81,10 +82,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: Center(
             child: Container(
               padding: const EdgeInsets.all(32),
-              child: Image.network(
-                state.homeData.imageUrl,
-                fit: BoxFit.contain,
-              ),
+              child: Image.network(homeData.imageUrl, fit: BoxFit.contain),
             ),
           ),
         ),
@@ -98,12 +96,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  state.homeData.title,
+                  homeData.title,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  state.homeData.description,
+                  homeData.description,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 const SizedBox(height: 32),
@@ -120,13 +118,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     );
   }
 
-  Widget _buildNarrowLayout(BuildContext context, HomeState state) {
+  Widget _buildNarrowLayout(BuildContext context, Home homeData) {
     return SingleChildScrollView(
       child: Column(
         children: [
           Container(
             padding: const EdgeInsets.all(16),
-            child: Image.network(state.homeData.imageUrl, fit: BoxFit.contain),
+            child: Image.network(homeData.imageUrl, fit: BoxFit.contain),
           ),
 
           Container(
@@ -135,13 +133,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  state.homeData.title,
+                  homeData.title,
                   style: Theme.of(context).textTheme.headlineSmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  state.homeData.description,
+                  homeData.description,
                   style: Theme.of(context).textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),

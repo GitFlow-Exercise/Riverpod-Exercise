@@ -2,7 +2,6 @@ import 'home_data_source.dart';
 import '../dto/home_dto.dart';
 
 class HomeDataSourceImpl implements HomeDataSource {
-  // 여기서는 샘플 데이터 반환
   @override
   Future<HomeDto> getHomeInfo() async {
     await Future.delayed(const Duration(milliseconds: 500));

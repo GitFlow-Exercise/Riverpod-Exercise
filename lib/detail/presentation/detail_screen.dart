@@ -1,5 +1,3 @@
-// Screen 클래스
-// 파일명: detail_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
