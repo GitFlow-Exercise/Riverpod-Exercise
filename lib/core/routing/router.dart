@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:practice/core/routing/routes.dart';
 import 'package:practice/detail/presentation/detail_screen_root.dart';
@@ -11,14 +12,42 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: Routes.home,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           final notifier = ref.read(homeNotifierProvider.notifier);
-          return HomeScreenRoot(notifier: notifier);
+          return CustomTransitionPage(
+            key: state.pageKey,
+            child: HomeScreenRoot(notifier: notifier),
+            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+              return FadeTransition(
+                opacity: CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOut,
+                ),
+                child: child,
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 100),
+          );
         },
         routes: [
           GoRoute(
             path: Routes.detail,
-            builder: (context, state) => const DetailScreenRoot(),
+            pageBuilder: (context, state) {
+              return CustomTransitionPage(
+                key: state.pageKey,
+                child: DetailScreenRoot(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return FadeTransition(
+                    opacity: CurvedAnimation(
+                      parent: animation,
+                      curve: Curves.easeInOut,
+                    ),
+                    child: child,
+                  );
+                },
+                transitionDuration: const Duration(milliseconds: 100),
+              );
+            },
           ),
         ],
       ),

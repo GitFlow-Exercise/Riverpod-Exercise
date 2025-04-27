@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:practice/core/routing/router.dart';
+import 'package:practice/core/routing/routes.dart';
 import 'package:practice/home/presentation/home_action.dart';
 
 import 'home_event.dart';
@@ -28,9 +30,7 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
 
     // 화면이 처음 로드될 때 데이터 가져오기
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(homeNotifierProvider.notifier)
-          .handleAction(const HomeAction.loadHomeInfo());
+      _handleAction(HomeAction.loadHomeInfo());
     });
   }
 
@@ -54,8 +54,22 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
   Widget build(BuildContext context) {
     final state = ref.watch(homeNotifierProvider);
 
-    return Scaffold(
-      body: HomeScreen(state: state, onAction: widget.notifier.handleAction),
-    );
+    return Scaffold(body: HomeScreen(state: state, onAction: _handleAction));
+  }
+
+  Future<void> _handleAction(HomeAction action) async {
+    switch (action) {
+      case LoadHomeInfo():
+        await widget.notifier.loadHomeInfo();
+      case Refresh():
+        await widget.notifier.refreshHomeInfo();
+      case OnTapDetail():
+        _onTapDetail();
+    }
+  }
+
+  void _onTapDetail() {
+    final router = ref.read(routerProvider);
+    router.go('${Routes.home}${Routes.detail}');
   }
 }

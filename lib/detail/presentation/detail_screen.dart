@@ -11,8 +11,10 @@ class DetailScreen extends ConsumerStatefulWidget {
 class _DetailScreenState extends ConsumerState<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Hello world!'),
+    return Scaffold(
+      body: Center(
+        child: Text('Hello world!'),
+      ),
     );
   }
 }
