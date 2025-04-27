@@ -9,7 +9,6 @@ coverage/
 .flutter-plugins
 .flutter-plugins-dependencies
 .melos_tool/
-analysis_options.yaml
 
 # FVM
 .fvm/
