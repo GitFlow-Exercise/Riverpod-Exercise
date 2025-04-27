@@ -9,7 +9,9 @@ import 'home_notifier.dart';
 import 'home_screen.dart';
 
 class HomeScreenRoot extends ConsumerStatefulWidget {
-  const HomeScreenRoot({super.key});
+  final HomeNotifier notifier;
+
+  const HomeScreenRoot({required this.notifier, super.key});
 
   @override
   ConsumerState<HomeScreenRoot> createState() => _HomeScreenRootState();
@@ -22,10 +24,7 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
   void initState() {
     super.initState();
 
-    _subscription = ref
-        .read(homeNotifierProvider.notifier)
-        .eventStream
-        .listen(_handleEvent);
+    _subscription = widget.notifier.eventStream.listen(_handleEvent);
 
     // 화면이 처음 로드될 때 데이터 가져오기
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -54,8 +53,9 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(homeNotifierProvider);
-    final notifier = ref.read(homeNotifierProvider.notifier);
 
-    return Scaffold(body: HomeScreen(state: state, notifier: notifier));
+    return Scaffold(
+      body: HomeScreen(state: state, onAction: widget.notifier.handleAction),
+    );
   }
 }

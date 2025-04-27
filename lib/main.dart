@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:practice/home/presentation/home_screen_root.dart';
+import 'package:practice/core/routing/router.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: PracticeApp()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class PracticeApp extends ConsumerWidget {
+  const PracticeApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter 웹 MVI 예제',
-      debugShowCheckedModeBanner: false,
-      home: const HomeScreenRoot(),
-    );
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+
+    return MaterialApp.router(routerConfig: router);
   }
 }
