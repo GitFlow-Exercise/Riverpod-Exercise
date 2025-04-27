@@ -13,7 +13,6 @@ coverage/
 # FVM
 .fvm/
 .dart_tool/package_config.json
-.pub-cache/
 
 # iOS
 ios/Flutter/Flutter.framework
