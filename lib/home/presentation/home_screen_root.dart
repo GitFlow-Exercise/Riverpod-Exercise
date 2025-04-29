@@ -11,9 +11,7 @@ import 'home_notifier.dart';
 import 'home_screen.dart';
 
 class HomeScreenRoot extends ConsumerStatefulWidget {
-  final HomeNotifier notifier;
-
-  const HomeScreenRoot({required this.notifier, super.key});
+  const HomeScreenRoot({super.key});
 
   @override
   ConsumerState<HomeScreenRoot> createState() => _HomeScreenRootState();
@@ -25,12 +23,12 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
   @override
   void initState() {
     super.initState();
-
-    _subscription = widget.notifier.eventStream.listen(_handleEvent);
-
-    // 화면이 처음 로드될 때 데이터 가져오기
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleAction(HomeAction.loadHomeInfo());
+      final viewModel = ref.watch(homeNotifierProvider.notifier);
+
+      _subscription = viewModel.eventStream.listen(_handleEvent);
+
+      _handleAction(const HomeAction.loadHomeInfo());
     });
   }
 
@@ -58,11 +56,13 @@ class _HomeScreenRootState extends ConsumerState<HomeScreenRoot> {
   }
 
   Future<void> _handleAction(HomeAction action) async {
+    final viewModel = ref.watch(homeNotifierProvider.notifier);
+
     switch (action) {
       case LoadHomeInfo():
-        await widget.notifier.loadHomeInfo();
+        await viewModel.loadHomeInfo();
       case Refresh():
-        await widget.notifier.refreshHomeInfo();
+        await viewModel.refreshHomeInfo();
       case OnTapDetail():
         _onTapDetail();
     }

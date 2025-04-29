@@ -13,10 +13,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.home,
         pageBuilder: (context, state) {
-          final notifier = ref.read(homeNotifierProvider.notifier);
           return CustomTransitionPage(
             key: state.pageKey,
-            child: HomeScreenRoot(notifier: notifier),
+            child: const HomeScreenRoot(),
             transitionsBuilder: (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: CurvedAnimation(
@@ -35,7 +34,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) {
               return CustomTransitionPage(
                 key: state.pageKey,
-                child: DetailScreenRoot(),
+                child: const DetailScreenRoot(),
                 transitionsBuilder: (context, animation, secondaryAnimation, child) {
                   return FadeTransition(
                     opacity: CurvedAnimation(
