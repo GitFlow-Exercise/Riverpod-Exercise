@@ -1,45 +1,60 @@
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
-
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
+# Flutter / Dart 기본
 .dart_tool/
+.packages
+.pub-cache/
+build/
+.idea/
+.sconsign.dblite
+coverage/
 .flutter-plugins
 .flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+.melos_tool/
 
-# Symbolication related
-app.*.symbols
+# FVM
+.fvm/
+.dart_tool/package_config.json
 
-# Obfuscation related
-app.*.map.json
+# iOS
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+Pods/
+Podfile.lock
+pubspec.lock
+DerivedData/
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# Android
+.android/
+gradle/
+.gradle/
+local.properties
+
+# Web
+web/.dart_tool/
+web/build/
+
+# VSCode
+.vscode/
+
+# Freezed, Json Serializable (build_runner로 생성된 파일)
+**/*.g.dart
+**/*.freezed.dart
+
+# 로컬 DB (Sembast, Sembase, SQLite 등)
+*.db
+*.sqlite
+*.sembast
+*.sembase
+
+# Supabase 관련
+supabase/.temp/
+.supabase/
+.env
+.env.*
+
+# Mac 시스템 파일
+.DS_Store
+
+# Windows 시스템 파일
+Thumbs.db
